@@ -3,8 +3,7 @@ import serial
 import sys
 import platform
 
-speed = 38400
-speed = 9600
+speed = 115200
 if platform.system() == "Darwin":
     dev = serial.Serial("/dev/tty.usbserial-0001", speed)
 else:
