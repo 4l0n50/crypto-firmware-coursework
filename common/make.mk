@@ -67,6 +67,9 @@ lib:
 %.elf: %.o $(OBJS) $(LDSCRIPT)
 	$(LD) -o $(*).elf $(*).o $(OBJS) $(LDFLAGS)
 
+%.o: %.s
+	$(CC) $(CFLAGS) -o $@ -c $<
+
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
