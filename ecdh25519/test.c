@@ -33,7 +33,7 @@ int main(void)
   unsigned char ss0[GROUP_GE_PACKEDBYTES];
   unsigned char ss1[GROUP_GE_PACKEDBYTES];
 
-  //output((unsigned char*)"\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
+  output("\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
 
   
   crypto_scalarmult_base(pk0, sk0); 
@@ -52,28 +52,28 @@ int main(void)
   {
     if(ss0[i] != ss1[i])
     {
-      output((unsigned char*)"Test failed!\n");
+      output("Test failed!\n");
       return -1;
     }
 
     if(pk0[i] != cmppk0[i])
     {
-      output((unsigned char*)"Test failed!\n");
+      output("Test failed!\n");
       return -1;
     }
     if(pk1[i] != cmppk1[i])
     {
-      output((unsigned char*)"Test failed!\n");
+      output("Test failed!\n");
       return -1;
     }
     if(ss0[i] != cmpss[i])
     {
-      output((unsigned char*)"Test failed!\n");
+      output("Test failed!\n");
       return -1;
     }
   }     
 
-  output((unsigned char*)"Test successful!\n");
+  output("Test successful!\n");
 
   teardown();
 
