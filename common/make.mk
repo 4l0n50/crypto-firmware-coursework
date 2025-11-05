@@ -15,9 +15,10 @@ CFLAGS		+= -O3 \
 		   -Wundef -Wshadow \
 		   -I$(OPENCM3_DIR)/include \
 		   -fno-common $(ARCH_FLAGS) -MD $(DEFINES)
-LDFLAGS		+= --static -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group \
+LDFLAGS		+= --static -Wl,--start-group -lc -lgcc -lrdimon -Wl,--end-group \
 		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections,--print-gc-sections \
 		   $(ARCH_FLAGS) \
+		   -specs=rdimon.specs \
 		   -L$(OPENCM3_DIR)/lib
 
 lib:
