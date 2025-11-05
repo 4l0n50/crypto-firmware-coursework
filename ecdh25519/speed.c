@@ -25,14 +25,16 @@ int main(void)
   crypto_scalarmult_base(pk, sk);
   newcount = performance_count()-oldcount;
 
-  sprintf(outstr, "\ncycles for scalarmult_base: %u", (unsigned) newcount);
+  sprintf(outstr, "\n%s for scalarmult_base: %u",
+    performance_count_unit(), (unsigned) newcount);
   output(outstr);
 
   oldcount = performance_count();
   crypto_scalarmult(ss, sk, pk);
   newcount = performance_count()-oldcount;
 
-  sprintf(outstr, "\ncycles for scalarmult: %u", (unsigned) newcount);
+  sprintf(outstr, "\n%s for scalarmult: %u",
+    performance_count_unit(), (unsigned) newcount);
   output(outstr);
 
   teardown();
