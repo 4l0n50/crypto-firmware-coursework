@@ -1,9 +1,16 @@
 # This file contains common Makefile content for all platforms;
 # it is referenced from the individual Makefiles
 
-TARGET	?= arm-none-eabi
+TARGET	?= stm32f4
 
-PREFIX	?= $(TARGET)-
+ifeq ($(TARGET),stm32f4)
+PREFIX	?= arm-none-eabi-
+endif
+
+ifeq ($(TARGET),host)
+PREFIX	?= 
+endif
+
 CC		= $(PREFIX)gcc
 LD		= $(PREFIX)gcc
 OBJCOPY	= $(PREFIX)objcopy
@@ -11,24 +18,35 @@ OBJDUMP	= $(PREFIX)objdump
 GDB		= $(PREFIX)gdb
 OPENCM3_DIR = ../libopencm3
 
+CFLAGS		+= -O3 \
+		   -Wall -Wextra -Wimplicit-function-declaration \
+		   -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
+		   -Wundef -Wshadow
+
+ifeq ($(TARGET),host)
+
+OBJS       += ../common/ecsw-stdio.o
+
+endif
+
+ifeq ($(TARGET),stm32f4)
+
+OBJS       += ../common/stm32f4_wrapper.o ../common/ecsw-stm32.o
+
 LDSCRIPT   = ../libopencm3/lib/stm32/f4/stm32f405x6.ld
 LIBNAME    = opencm3_stm32f4
 ARCH_FLAGS = -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16
 DEFINES    = -DSTM32F4
-OBJS       = ../common/stm32f4_wrapper.o ../common/ecsw-stm32.o
 
-
-CFLAGS		+= -O3 \
-		   -Wall -Wextra -Wimplicit-function-declaration \
-		   -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
-		   -Wundef -Wshadow \
+CFLAGS		+= \
 		   -I$(OPENCM3_DIR)/include \
 		   -fno-common $(ARCH_FLAGS) -MD $(DEFINES)
 LDFLAGS		+= --static -Wl,--start-group -lc -lgcc -lrdimon -Wl,--end-group \
 		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections,--print-gc-sections \
 		   $(ARCH_FLAGS) \
 		   -specs=rdimon.specs \
-		   -L$(OPENCM3_DIR)/lib
+		   -L$(OPENCM3_DIR)/lib -l$(LIBNAME)
+endif
 
 lib:
 	@if [ ! "`ls -A $(OPENCM3_DIR)`" ] ; then \
@@ -47,7 +65,7 @@ lib:
 	$(OBJCOPY) -Obinary $(*).elf $(*).bin
 
 %.elf: %.o $(OBJS) $(LDSCRIPT)
-	$(LD) -o $(*).elf $(*).o $(OBJS) $(LDFLAGS) -l$(LIBNAME)
+	$(LD) -o $(*).elf $(*).o $(OBJS) $(LDFLAGS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
