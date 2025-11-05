@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "chacha20.h"
-#include "../common/stm32wrapper.h"
+#include "../common/ecsw.h"
 
 #define OUTLEN 1024
 
@@ -15,27 +15,22 @@ unsigned char nonce[CHACHA20_NONCEBYTES] = {
 int main(void)
 {
   char outstr[128];
-  unsigned int oldcount, newcount;
+  unsigned long long oldcount, newcount;
 
-  clock_setup(CLOCK_BENCHMARK);
-  gpio_setup();
-  usart_setup(115200);
 
-  SCS_DEMCR |= SCS_DEMCR_TRCENA;
-  DWT_CYCCNT = 0;
-  DWT_CTRL |= DWT_CTRL_CYCCNTENA;
+  setup();
 
-  send_USART_str((unsigned char*)"\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
+  output("\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
   
-  oldcount = DWT_CYCCNT;
+  oldcount = performance_count();
   crypto_stream_chacha20(out, OUTLEN, nonce, key);
-  newcount = DWT_CYCCNT-oldcount;
+  newcount = performance_count()-oldcount;
 
-  sprintf(outstr, "\ncycles for %d bytes: %u", OUTLEN, newcount);
+  sprintf(outstr, "\n%s for %d bytes: %u",
+    performance_count_unit(), OUTLEN, (unsigned) newcount);
 
-  send_USART_str((unsigned char*)outstr);
+  output(outstr);
 
-  while(1);
-  
+  teardown();
   return 0;
 }

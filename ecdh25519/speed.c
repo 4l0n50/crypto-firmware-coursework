@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "smult.h"
-#include "../common/stm32wrapper.h"
+#include "../common/ecsw.h"
 
 #define OUTLEN 1024
 
@@ -14,33 +14,28 @@ unsigned char ss[32];
 int main(void)
 {
   char outstr[128];
-  unsigned int oldcount, newcount;
+  unsigned long long oldcount, newcount;
 
-  clock_setup(CLOCK_BENCHMARK);
-  gpio_setup();
-  usart_setup(115200);
 
-  SCS_DEMCR |= SCS_DEMCR_TRCENA;
-  DWT_CYCCNT = 0;
-  DWT_CTRL |= DWT_CTRL_CYCCNTENA;
+  setup();
 
-  send_USART_str((unsigned char*)"\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
-  
-  oldcount = DWT_CYCCNT;
+  output("\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
+
+  oldcount = performance_count();
   crypto_scalarmult_base(pk, sk);
-  newcount = DWT_CYCCNT-oldcount;
+  newcount = performance_count()-oldcount;
 
-  sprintf(outstr, "\ncycles for scalarmult_base: %u", newcount);
-  send_USART_str((unsigned char*)outstr);
+  sprintf(outstr, "\ncycles for scalarmult_base: %u", (unsigned) newcount);
+  output(outstr);
 
-  oldcount = DWT_CYCCNT;
+  oldcount = performance_count();
   crypto_scalarmult(ss, sk, pk);
-  newcount = DWT_CYCCNT-oldcount;
+  newcount = performance_count()-oldcount;
 
-  sprintf(outstr, "\ncycles for scalarmult: %u", newcount);
-  send_USART_str((unsigned char*)outstr);
+  sprintf(outstr, "\ncycles for scalarmult: %u", (unsigned) newcount);
+  output(outstr);
 
-  while(1);
+  teardown();
 
   return 0;
 }

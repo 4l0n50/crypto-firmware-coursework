@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "chacha20.h"
-#include "../common/stm32wrapper.h"
+#include "../common/ecsw.h"
 
 #define OUTLEN 545
 
@@ -51,11 +51,9 @@ unsigned char nonce[CHACHA20_NONCEBYTES] = {
 
 int main(void)
 {
-  clock_setup(CLOCK_FAST);
-  gpio_setup();
-  usart_setup(115200);
+  setup();
 
-  send_USART_str((unsigned char*)"\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
+  output("\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
   
   crypto_stream_chacha20(out, OUTLEN, nonce, key);
 
@@ -64,16 +62,14 @@ int main(void)
   {
     if(cmp[i] != out[i])
     {
-      send_USART_str((unsigned char*)"Test failed!\n");
-      gpio_toggle(GPIOD, GPIO14);
+      output("Test failed!\n");
       return -1;
     }
   }     
 
-  send_USART_str((unsigned char*)"Test successful!\n");
+  output("Test successful!\n");
 
-  gpio_toggle(GPIOD, GPIO12);
-  while(1);
+  teardown();
 
   return 0;
 }

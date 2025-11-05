@@ -1,6 +1,11 @@
+# ifdef CT_VALGRIND
+# include <valgrind/memcheck.h>
+# endif
+
+
 #include <stdio.h>
 #include "poly1305.h"
-#include "../common/stm32wrapper.h"
+#include "../common/ecsw.h"
 
 #define INLEN 545
 
@@ -51,29 +56,34 @@ unsigned char key[POLY1305_KEYBYTES] = {
 
 int main(void)
 {
-  clock_setup(CLOCK_FAST);
-  gpio_setup();
-  usart_setup(115200);
+  setup();
 
-  send_USART_str((unsigned char*)"\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
-  
+  output((unsigned char*)"\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
+
+# ifdef CT_VALGRIND
+  VALGRIND_MAKE_MEM_UNDEFINED(key, sizeof(key));
+# endif
+
   crypto_onetimeauth_poly1305(tag,msg,INLEN,key);
+
+# ifdef CT_VALGRIND
+  VALGRIND_MAKE_MEM_DEFINED(tag, sizeof(tag));
+  // return 0;
+# endif
 
   int i;
   for(i=0;i<POLY1305_BYTES;i++)
   {
     if(cmp[i] != tag[i])
     {
-      send_USART_str((unsigned char*)"Test failed!\n");
-      gpio_toggle(GPIOD, GPIO14);
+      output((unsigned char*)"Test failed!\n");
       return -1;
     }
   }     
 
-  send_USART_str((unsigned char*)"Test successful!\n");
+  output((unsigned char*)"Test successful!\n");
 
-  gpio_toggle(GPIOD, GPIO12);
-  while(1);
+  teardown();
 
   return 0;
 }
