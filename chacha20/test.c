@@ -65,12 +65,14 @@ int main(void)
     if(cmp[i] != out[i])
     {
       send_USART_str((unsigned char*)"Test failed!\n");
+      gpio_toggle(GPIOD, GPIO14);
       return -1;
     }
   }     
 
   send_USART_str((unsigned char*)"Test successful!\n");
 
+  gpio_toggle(GPIOD, GPIO12);
   while(1);
 
   return 0;

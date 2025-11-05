@@ -45,28 +45,33 @@ int main(void)
     if(ss0[i] != ss1[i])
     {
       send_USART_str((unsigned char*)"Test failed!\n");
+      gpio_toggle(GPIOD, GPIO14);
       return -1;
     }
 
     if(pk0[i] != cmppk0[i])
     {
       send_USART_str((unsigned char*)"Test failed!\n");
+      gpio_toggle(GPIOD, GPIO14);
       return -1;
     }
     if(pk1[i] != cmppk1[i])
     {
       send_USART_str((unsigned char*)"Test failed!\n");
+      gpio_toggle(GPIOD, GPIO14);
       return -1;
     }
     if(ss0[i] != cmpss[i])
     {
       send_USART_str((unsigned char*)"Test failed!\n");
+      gpio_toggle(GPIOD, GPIO14);
       return -1;
     }
   }     
 
   send_USART_str((unsigned char*)"Test successful!\n");
 
+  gpio_toggle(GPIOD, GPIO12);
   while(1);
 
   return 0;
