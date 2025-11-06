@@ -1,8 +1,8 @@
 #include "ecsw.h"
 #include "../common/stm32wrapper.h"
 
-void setup(void) {
-  clock_setup(CLOCK_FAST);
+void setup(const enum ecsw_mode mode) {
+  clock_setup(mode == ECSW_BENCHMARK ? CLOCK_BENCHMARK : CLOCK_FAST);
   gpio_setup();
   usart_setup(115200);
 

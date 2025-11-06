@@ -7,7 +7,7 @@ int main(void)
 {
   unsigned int oldcount, newcount;
 
-  setup();
+  setup(ECSW_BENCHMARK);
 
   output("\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
   

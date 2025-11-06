@@ -18,7 +18,7 @@ int main(void)
   unsigned long long oldcount, newcount;
 
 
-  setup();
+  setup(ECSW_BENCHMARK);
 
   output("\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
   

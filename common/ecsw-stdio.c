@@ -3,7 +3,8 @@
 
 #include "ecsw.h"
 
-void setup(void) {
+void setup(const enum ecsw_mode mode) {
+    (void) mode;
 }
 
 void teardown(void) {

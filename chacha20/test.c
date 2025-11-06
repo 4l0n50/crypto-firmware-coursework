@@ -51,7 +51,7 @@ unsigned char nonce[CHACHA20_NONCEBYTES] = {
 
 int main(void)
 {
-  setup();
+  setup(ECSW_TEST);
 
   output("\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
   

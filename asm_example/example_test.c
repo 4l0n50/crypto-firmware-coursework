@@ -5,7 +5,7 @@ extern int power(int x, int e);
 
 int main(void)
 {
-  setup();
+  setup(ECSW_TEST);
 
   output("\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
   

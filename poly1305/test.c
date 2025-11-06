@@ -56,7 +56,7 @@ unsigned char key[POLY1305_KEYBYTES] = {
 
 int main(void)
 {
-  setup();
+  setup(ECSW_TEST);
 
   output("\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
 
