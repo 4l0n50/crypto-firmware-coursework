@@ -1,3 +1,5 @@
+TARGETS ?=	stm32/f4
+
 ##
 ## This file is part of the libopencm3 project.
 ##
