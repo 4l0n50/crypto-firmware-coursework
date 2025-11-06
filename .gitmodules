@@ -1,3 +1,0 @@
-[submodule "sw-assigment/libopencm3"]
-	path = sw-assignment/libopencm3
-	url = https://github.com/libopencm3/libopencm3.git
