@@ -58,7 +58,7 @@ int main(void)
 {
   setup();
 
-  output((unsigned char*)"\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
+  output("\n============ IGNORE OUTPUT BEFORE THIS LINE ============\n");
 
 # ifdef CT_VALGRIND
   VALGRIND_MAKE_MEM_UNDEFINED(key, sizeof(key));
@@ -76,12 +76,12 @@ int main(void)
   {
     if(cmp[i] != tag[i])
     {
-      output((unsigned char*)"Test failed!\n");
+      output("Test failed!\n");
       return -1;
     }
   }     
 
-  output((unsigned char*)"Test successful!\n");
+  output("Test successful!\n");
 
   teardown();
 
