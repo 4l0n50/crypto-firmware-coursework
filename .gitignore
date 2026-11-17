@@ -2,3 +2,17 @@
 *.d
 *.elf
 *.bin
+
+# Local coursework build outputs
+build/
+qemu/build/
+*.o
+*.d
+*.a
+*.elf
+*.bin
+*.map
+*.log
+*.disasm
+__pycache__/
+.vscode/

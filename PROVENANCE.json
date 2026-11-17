@@ -1,0 +1,20 @@
+{
+  "course": "https://cryptojedi.org/peter/teaching/engineering-crypto-software-2025.shtml",
+  "archive_sha256": "b3fb50711be73a049785acbfb6f1e9602ffa36bdeb7622e924d3097c44690da8",
+  "history": "Original course commits preserved; added ChaCha20 snapshots reconstructed with actual creation dates.",
+  "supplied_files": {
+    "chacha20/chacha20.h": "69cfcd1fa47e76ea69f9d240794da384edcc1c35361277b23c0a2e57e269b7b6",
+    "chacha20/speed.c": "e6398353172a1bdba3953ad14b06a0ca619856b6e7ac33f9065d6b492085dd32",
+    "chacha20/test.c": "30e24856eaa949f2b624deb9efb409f8cd7f456dcd8c7a6212518c72f46e3857",
+    "chacha20/Makefile": "54888737d954fac67fa3c32b3b1c7a840973d7bdb897ba3f6ef99030ae072605",
+    "chacha20/chacha20.c": "4108bec425b309135a20ae7a24f9ce85147c334178b1d1a183b09bf5c83ad63e",
+    "common/ecsw.h": "01a2fbf5e54f91a123cff1f91d60c983026dff0244eb8b046c155e27f0cbab1c",
+    "common/stm32f4_wrapper.c": "7b3230aefa9bbe842f998cc84110163127277bedbfd60e19ff3be85e428759c3",
+    "common/ecsw-stm32.c": "1e3ee9723c7ce4a7193575334c171f7684d4b741ec8a0c0304aba2059840a59d",
+    "common/make.mk": "e5968999386059b720608cd16cbbf0469aa324fd15e3f47424fa4bc20508f4d0",
+    "common/ecsw-stdio.c": "b6496f47f5401c28349c8fe20c2d0df6c4bd8f93a56c939ea43335487f02ebe5",
+    "common/stm32wrapper.h": "34b90d1e4201d17fbdf17b87611b3caeba23520d053564ef331d30b128778b9d"
+  },
+  "upstream_repository": "https://gitlab.science.ru.nl/dis/education/ecsw",
+  "upstream_commit": "9a245b31052335ec43adedeaf967d5619bb64868"
+}
