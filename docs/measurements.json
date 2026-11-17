@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-17",
+  "board": "STM32F407G-DISC1",
+  "source": "Learner-reported UART outputs from hardware; not agent-run hardware measurements.",
+  "message_bytes": 1024,
+  "clock_hz": 24000000,
+  "compiler_flags": "-O3 -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -ffunction-sections -fdata-sections",
+  "tools": {
+    "arm-none-eabi-gcc": "arm-none-eabi-gcc (15:10.3-2021.07-4) 10.3.1 20210621 (release)",
+    "qemu-system-arm": "QEMU emulator version 6.2.0 (Debian 1:6.2+dfsg-2ubuntu6.31)"
+  },
+  "c_reference_cycles": 32204,
+  "register_assembly_cycles": 28768,
+  "target_cycles": 30000,
+  "cycles_saved": 3436,
+  "cycle_reduction_percent": 10.669482051919017,
+  "artifacts": {
+    "chacha20-c-reference-test.bin": {
+      "sha256": "fd70a14882b1a0cdb440a5646a6fa34290e1a0191431daf96f6522fa644cdc5a"
+    },
+    "chacha20-c-reference-speed.bin": {
+      "sha256": "3769434628780cc37d18aba69dbde38022f863a977609711a9bb81ec209f7e29"
+    },
+    "chacha20-registers-test.bin": {
+      "sha256": "4abc64af4eab3e9b879f0cdf6fbd8d215a1f8155e788eac14168e0889bcc6b8c"
+    },
+    "chacha20-registers-speed.bin": {
+      "sha256": "18b0c2bdd14b58ff732582b57a70075af0f98f511bd9316f5aa11fdd7051fafc"
+    }
+  }
+}

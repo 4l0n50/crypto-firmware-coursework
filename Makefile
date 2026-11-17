@@ -30,10 +30,10 @@ $(OUT)/%.o: chacha20/%.S | $(OUT)
 	$(CC) $(CFLAGS) -c $< -o $@
 $(OUT)/%.o: common/%.c | $(OUT)
 	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
-$(OUT)/chacha20-test.elf: $(OUT)/test.o $(COMMON_OBJ) | lib
-	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
-$(OUT)/chacha20-speed.elf: $(OUT)/speed.o $(COMMON_OBJ) | lib
-	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
+$(OUT)/chacha20-test.elf: $(OUT)/chacha20.o $(OUT)/test.o $(filter-out $(OUT)/chacha20.o,$(COMMON_OBJ)) Makefile | lib
+	$(CC) $(LDFLAGS) $(filter %.o,$^) $(LDLIBS) -o $@
+$(OUT)/chacha20-speed.elf: $(OUT)/chacha20.o $(OUT)/speed.o $(filter-out $(OUT)/chacha20.o,$(COMMON_OBJ)) Makefile | lib
+	$(CC) $(LDFLAGS) $(filter %.o,$^) $(LDLIBS) -o $@
 $(OUT)/%.bin: $(OUT)/%.elf
 	$(OBJCOPY) -Obinary $< $@
 clean:

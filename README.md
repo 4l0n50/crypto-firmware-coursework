@@ -38,3 +38,9 @@ The C reference and original test/benchmark come from the [official assignment a
 ## Upstream repository
 
 This repository imports the original ECSW Git history from https://gitlab.science.ru.nl/dis/education/ecsw. It is an import from GitLab, not a GitHub fork-network relationship. `upstream` points to Radboud and `origin` to the learner's GitHub repository. Original Poly1305, Curve25519 and other course files are retained unchanged. The added root build commands focus on ChaCha20. The original course README is preserved at docs/UPSTREAM_README.md.
+
+## Implementation snapshots and results
+
+After the preserved upstream course history, four added commits cover build support, the first stack-backed assembly, the register-based assembly, and hardware results. The final optimized core is chacha20/crypto_core_chacha20.s.
+
+The optimized implementation passed the supplied hardware regression and measured **28,768 cycles for 1,024 bytes**, against **32,204** for the C reference and a **30,000-cycle** assignment target. See [results](docs/RESULTS.md), [measurement metadata](docs/measurements.json), and [hardware debugging](docs/DEBUGGING.md).
